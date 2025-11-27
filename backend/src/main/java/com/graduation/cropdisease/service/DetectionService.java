@@ -3,8 +3,8 @@ package com.graduation.cropdisease.service;
 import com.graduation.cropdisease.entity.DetectionRecord;
 import com.graduation.cropdisease.entity.User;
 import com.graduation.cropdisease.repository.DetectionRecordRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -12,8 +12,11 @@ import java.util.Optional;
 @Service
 public class DetectionService {
     
-    @Autowired
-    private DetectionRecordRepository detectionRecordRepository;
+    private final DetectionRecordRepository detectionRecordRepository;
+    
+    public DetectionService(DetectionRecordRepository detectionRecordRepository) {
+        this.detectionRecordRepository = detectionRecordRepository;
+    }
     
     /**
      * 创建检测记录
@@ -27,6 +30,9 @@ public class DetectionService {
      * 根据ID查找检测记录
      */
     public Optional<DetectionRecord> findById(Long id) {
+        if (id == null) {
+            return Optional.empty();
+        }
         return detectionRecordRepository.findById(id);
     }
     
@@ -97,7 +103,9 @@ public class DetectionService {
      * 删除检测记录
      */
     public void deleteRecord(Long id) {
-        detectionRecordRepository.deleteById(id);
+        if (id != null) {
+            detectionRecordRepository.deleteById(id);
+        }
     }
     
     /**

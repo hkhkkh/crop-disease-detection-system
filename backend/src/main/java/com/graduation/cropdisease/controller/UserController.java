@@ -2,9 +2,9 @@ package com.graduation.cropdisease.controller;
 
 import com.graduation.cropdisease.entity.User;
 import com.graduation.cropdisease.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +15,11 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class UserController {
     
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
     
     /**
      * 获取所有用户

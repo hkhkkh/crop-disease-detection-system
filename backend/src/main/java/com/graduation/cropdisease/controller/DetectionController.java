@@ -4,9 +4,9 @@ import com.graduation.cropdisease.entity.DetectionRecord;
 import com.graduation.cropdisease.entity.User;
 import com.graduation.cropdisease.service.DetectionService;
 import com.graduation.cropdisease.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,11 +17,13 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class DetectionController {
     
-    @Autowired
-    private DetectionService detectionService;
+    private final DetectionService detectionService;
+    private final UserService userService;
     
-    @Autowired
-    private UserService userService;
+    public DetectionController(DetectionService detectionService, UserService userService) {
+        this.detectionService = detectionService;
+        this.userService = userService;
+    }
     
     /**
      * 获取所有检测记录

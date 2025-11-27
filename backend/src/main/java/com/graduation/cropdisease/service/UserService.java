@@ -2,8 +2,8 @@ package com.graduation.cropdisease.service;
 
 import com.graduation.cropdisease.entity.User;
 import com.graduation.cropdisease.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -11,8 +11,11 @@ import java.util.Optional;
 @Service
 public class UserService {
     
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
     
     /**
      * 创建新用户
@@ -27,6 +30,9 @@ public class UserService {
      * 根据ID查找用户
      */
     public Optional<User> findById(Long id) {
+        if (id == null) {
+            return Optional.empty();
+        }
         return userRepository.findById(id);
     }
     
@@ -77,7 +83,9 @@ public class UserService {
      * 删除用户
      */
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        if (id != null) {
+            userRepository.deleteById(id);
+        }
     }
     
     /**

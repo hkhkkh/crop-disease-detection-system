@@ -1,9 +1,9 @@
 package com.graduation.cropdisease.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.graduation.cropdisease.service.SystemService;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,8 +12,11 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class SystemController {
     
-    @Autowired
-    private SystemService systemService;
+    private final SystemService systemService;
+    
+    public SystemController(SystemService systemService) {
+        this.systemService = systemService;
+    }
     
     /**
      * 系统健康检查
